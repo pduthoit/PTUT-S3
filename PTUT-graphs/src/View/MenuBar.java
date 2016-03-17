@@ -38,7 +38,6 @@ public class MenuBar{
     final private JMenuItem menu0Item0 = new JMenuItem("Ouvrir");
     final private JMenuItem menu1Item0 = new JMenuItem("Créer un sommet");
 
-    private SwingContainer gui;
 
     private ModeleTable modele;
  

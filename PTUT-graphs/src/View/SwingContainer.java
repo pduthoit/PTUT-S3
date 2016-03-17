@@ -11,6 +11,7 @@ import javax.swing.*;
 import org.graphstream.algorithm.ConnectedComponents;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 /**
  *
  * @author User
@@ -19,19 +20,21 @@ public class SwingContainer {
     private JFrame mainFrame;
     public static java.util.List<Sommet> listeSommets;
     public static java.util.List<Edge> listeArretes;    
-    private Graph g;
+    public static SwingContainer myWindow;
+    public static Graph g;
     
     private MenuBar menuBar;
     private EditPanel editPanel;
     private SplitPanel splitPanel;
     private InfoPanel infoPanel;
     private GraphPanel graphPanel;
-    public static SwingContainer myWindow;
+    
     
     public SwingContainer(){}
     
     public static void main(String[] args){
         try{
+            g = new SingleGraph("g");
             myWindow = new SwingContainer();
             myWindow.prepareGUI();
         }catch(Exception E){
