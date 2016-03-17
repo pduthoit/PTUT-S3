@@ -54,7 +54,6 @@ public class ModeleTable extends AbstractTableModel{
     public void addRow(Object[] row) {
         data.add(row);
         this.fireTableDataChanged();
-       
     }
     
     public void supprimeLigne(int ligne){

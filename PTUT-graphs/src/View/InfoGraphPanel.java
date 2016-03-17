@@ -1,5 +1,6 @@
 package View;
 
+import static View.SwingContainer.myWindow;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -49,6 +50,8 @@ public class InfoGraphPanel extends JPanel{
         this.add(fieldTaille);
         this.add(labelOrdre);
         this.add(fieldOrdre);
+        
+        myWindow.updateTable();
     }
     
     

@@ -2,8 +2,9 @@ package Controller;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import org.graphstream.graph.Node;
 
-public class Sommet {
+public abstract class Sommet{
  
     private String nom;
     private HashSet <String> sommetsAdjacents;
@@ -18,6 +19,7 @@ public class Sommet {
         this.degre = degre;
         sommetsAdjacents = new HashSet <String>();
     }
+    
     public String getNom() {
         return nom;
     }

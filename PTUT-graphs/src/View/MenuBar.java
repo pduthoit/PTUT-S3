@@ -39,8 +39,6 @@ public class MenuBar{
     final private JMenuItem menu1Item0 = new JMenuItem("Créer un sommet");
 
 
-    private ModeleTable modele;
- 
     public MenuBar(){
         GraphPanel gPanel = myWindow.getGraphPanel();
         System.out.println(gPanel);

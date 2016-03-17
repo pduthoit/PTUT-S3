@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.stream.file.FileSource;
 import org.graphstream.stream.file.FileSourceFactory;
 import org.graphstream.ui.view.View;
@@ -23,18 +22,13 @@ import org.graphstream.ui.view.Viewer;
  * @author User
  */
 public class GraphPanel extends JPanel{
-    private List<Sommet> listeSommets;
-    private List<Edge> listeArretes;
     private Viewer vue;
     private View view;
     
     
     public GraphPanel() throws IOException{
         this.setLayout(new BorderLayout());
-        
-        listeSommets = new ArrayList<Sommet>();
-        listeArretes = new ArrayList<Edge>();
-        
+                
         g.setStrict(false);
         g.setAutoCreate(true);
         g.addEdge("AB", "A", "B" );
@@ -104,18 +98,5 @@ public class GraphPanel extends JPanel{
         view.getCamera().resetView();
         view = vue.addDefaultView(false);
         
-    }
-    
-    public Graph getG() {
-        return g;
-    }
-
-    public List<Sommet> getListeSommets() {
-        return listeSommets;
-    }
-
-    public List<Edge> getListeArretes() {
-        return listeArretes;
-    }
-    
+    } 
 }

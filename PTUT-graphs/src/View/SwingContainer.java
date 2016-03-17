@@ -5,12 +5,14 @@ import Model.ModeleTable;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import org.graphstream.algorithm.ConnectedComponents;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 /**
  *
@@ -22,6 +24,7 @@ public class SwingContainer {
     public static java.util.List<Edge> listeArretes;    
     public static SwingContainer myWindow;
     public static Graph g;
+    public static ModeleTable modele;
     
     private MenuBar menuBar;
     private EditPanel editPanel;
@@ -34,7 +37,10 @@ public class SwingContainer {
     
     public static void main(String[] args){
         try{
+            modele = new ModeleTable();
             g = new SingleGraph("g");
+            listeSommets = new ArrayList<Sommet>();
+            listeArretes = new ArrayList<Edge>();
             myWindow = new SwingContainer();
             myWindow.prepareGUI();
         }catch(Exception E){
@@ -76,18 +82,23 @@ public class SwingContainer {
     }
 
     public void updateTable() {
-        ModeleTable modele = new ModeleTable();
+        for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
+            listeSommets.add(g.getNode(i));
+        }
         int sumDegrees = 0;
         int order = 0;
         boolean connexity = false;
 
         modele.supprimeToutesLesLigne();
-        System.out.println("test");
+        
+        System.out.println("updateTable()\n");
+        //Pour chaque noeuds de la listeSommets
         for (int i = 0; i < listeSommets.size(); i++) {
-            sumDegrees += listeSommets.get(i).getDegre();
-            order++;
-            Object[] row = {listeSommets.get(i).getNom(), listeSommets.get(i).toStringSommetsAdjacents(), listeSommets.get(i).getDegre()};
-            modele.addRow(row);
+            sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
+            order++; // incrémente l'ordre du graphe
+            // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
+            Object[] row = {listeSommets.get(i).getNom(), listeSommets.get(i).toStringSommetsAdjacents(), listeSommets.get(i).getDegre()}; 
+            modele.addRow(row); // ajoute la ligne au modèle
         }
 
         ConnectedComponents cc = new ConnectedComponents();
