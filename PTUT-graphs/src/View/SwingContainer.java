@@ -6,8 +6,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import org.graphstream.algorithm.ConnectedComponents;
 import org.graphstream.graph.Edge;
@@ -43,6 +41,7 @@ public class SwingContainer {
             listeArretes = new ArrayList<Edge>();
             myWindow = new SwingContainer();
             myWindow.prepareGUI();
+            myWindow.updateTable();
         }catch(Exception E){
             E.printStackTrace();
         }        
@@ -83,11 +82,10 @@ public class SwingContainer {
 
     public void updateTable() {
         for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
-            listeSommets.add(g.getNode(i));
+            listeSommets.add(new Sommet(g.getNode(i).getIndex() , g.getNode(i).getDegree()));
         }
         int sumDegrees = 0;
         int order = 0;
-        boolean connexity = false;
 
         modele.supprimeToutesLesLigne();
         
@@ -97,15 +95,15 @@ public class SwingContainer {
             sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
             order++; // incrémente l'ordre du graphe
             // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
-            Object[] row = {listeSommets.get(i).getNom(), listeSommets.get(i).toStringSommetsAdjacents(), listeSommets.get(i).getDegre()}; 
+            Object[] row = {listeSommets.get(i).getId(), listeSommets.get(i).toStringSommetsAdjacents(), listeSommets.get(i).getDegre()}; 
             modele.addRow(row); // ajoute la ligne au modèle
         }
 
         ConnectedComponents cc = new ConnectedComponents();
         cc.init(g);
 
-        InfoGraphPanel infoGraphPanel = infoPanel.getInfoGraphPanel();
-
+        InfoGraphPanel infoGraphPanel = this.getInfoPanel().getInfoGraphPanel();
+        System.out.println(infoGraphPanel);
         if (cc.getConnectedComponentsCount() == 1) {
             infoGraphPanel.setTextFieldConnexe("Oui");
         } else {
@@ -119,6 +117,10 @@ public class SwingContainer {
 
     public GraphPanel getGraphPanel() {
         return graphPanel;
+    }
+    
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
     
 }

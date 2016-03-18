@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import org.graphstream.graph.Node;
 
-public abstract class Sommet{
+public class Sommet{
  
-    private String nom;
+    private int id;
     private HashSet <String> sommetsAdjacents;
     private int degre;
 
@@ -14,14 +14,14 @@ public abstract class Sommet{
         this.degre = degre;
     }
     
-    public Sommet(String nom, int degre) {
-        this.nom = nom;
+    public Sommet(int id, int degre) {
+        this.id = id;
         this.degre = degre;
         sommetsAdjacents = new HashSet <String>();
     }
     
-    public String getNom() {
-        return nom;
+    public int getId() {
+        return id;
     }
 
     public HashSet<String> getSommetsAdjacents() {

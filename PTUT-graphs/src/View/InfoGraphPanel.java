@@ -37,10 +37,21 @@ public class InfoGraphPanel extends JPanel{
         fieldTaille = new JTextField();
         fieldOrdre = new JTextField();
         
-        fieldConnexe.setPreferredSize(new Dimension(30, 24));
-        fieldTotDegre.setPreferredSize(new Dimension(30, 24));
-        fieldTaille.setPreferredSize(new Dimension(30, 24));
-        fieldOrdre.setPreferredSize(new Dimension(30, 24));
+        fieldConnexe.setPreferredSize(new Dimension(50, 24));
+        fieldTotDegre.setPreferredSize(new Dimension(50, 24));
+        fieldTaille.setPreferredSize(new Dimension(50, 24));
+        fieldOrdre.setPreferredSize(new Dimension(50, 24));
+        
+        fieldConnexe.setEditable(false);
+        fieldTotDegre.setEditable(false);
+        fieldTaille.setEditable(false);
+        fieldOrdre.setEditable(false);
+        
+        fieldConnexe.setHorizontalAlignment(JTextField.CENTER);
+        fieldTotDegre.setHorizontalAlignment(JTextField.CENTER);
+        fieldTaille.setHorizontalAlignment(JTextField.CENTER);
+        fieldOrdre.setHorizontalAlignment(JTextField.CENTER);
+        
         
         this.add(labelConnexe);
         this.add(fieldConnexe);
@@ -50,8 +61,6 @@ public class InfoGraphPanel extends JPanel{
         this.add(fieldTaille);
         this.add(labelOrdre);
         this.add(fieldOrdre);
-        
-        myWindow.updateTable();
     }
     
     
@@ -69,6 +78,11 @@ public class InfoGraphPanel extends JPanel{
     
     public void setTextFieldOrdre(int ordre) {
         this.fieldOrdre.setText(Integer.toString(ordre));
+    }
+    
+    public InfoGraphPanel getInfoGraphPanel(){
+        System.out.println("getInfoGraphPanel()");
+        return this;
     }
         
 }

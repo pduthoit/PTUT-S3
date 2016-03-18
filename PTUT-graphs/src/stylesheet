@@ -1,11 +1,15 @@
 node {
-    size: 3px;
-    fill-color: #777;
-    text-mode: hidden;
-    z-index: 0;
+    shape: circle;
+    fill-color: #223; 
+    shape: rounded-box;  
+    stroke-mode: plain;
+    stroke-color: #333;
+    size: 25px;
+    text-visibility-mode:hidden;
 }
 edge {
+    fill-color: #333;
+    text-visibility-mode:hidden;
     shape: line;
-    fill-color: #222;
     arrow-size: 3px, 2px;
 }
