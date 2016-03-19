@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.*;
 import org.graphstream.algorithm.ConnectedComponents;
 import org.graphstream.graph.Edge;
@@ -95,9 +96,26 @@ public class SwingContainer {
             sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
             order++; // incrémente l'ordre du graphe
             // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
-            Object[] row = {listeSommets.get(i).getId(), listeSommets.get(i).toStringSommetsAdjacents(), listeSommets.get(i).getDegre()}; 
+            String sommetsAdjacents = "";
+            Iterator itr = g.getNode(i).getNeighborNodeIterator();
+            while(itr.hasNext()) {
+               sommetsAdjacents = sommetsAdjacents + " " + itr.next();
+            }
+            Object[] row = {listeSommets.get(i).getId(), sommetsAdjacents, listeSommets.get(i).getDegre()}; 
+           //System.out.println(listeSommets.get(i).getId() + " - " + sommetsAdjacents  + " - " + listeSommets.get(i).getDegre());
             modele.addRow(row); // ajoute la ligne au modèle
-        }
+            
+            
+              }
+        
+      
+         for(int i = 0; i <  modele.getData().size(); i++)
+    {
+      System.out.println("donnée à l'indice " + i + " = " +  modele.getData().get(i).toString());
+    }   
+        
+        
+       
 
         ConnectedComponents cc = new ConnectedComponents();
         cc.init(g);
