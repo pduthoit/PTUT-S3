@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/SwingContainer.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/GraphPanel.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/Controller/Sommet.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/SplitPanel.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/Table.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/InfoGraphPanel.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/Model/ModeleTable.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/InfoPanel.java</file>
-            <file>file:/C:/Users/User/Desktop/hubiC/IUT%20Informatique/PTUT-S3/PTUT-graphs/src/View/MenuBar.java</file>
+            <file>file:/C:/Users/Corentin/Documents/Cours/Projet%20tuteuré/V2/PTUT-S3/PTUT-graphs/src/Model/ModeleTable.java</file>
+            <file>file:/C:/Users/Corentin/Documents/Cours/Projet%20tuteuré/V2/PTUT-S3/PTUT-graphs/src/View/Table.java</file>
+            <file>file:/C:/Users/Corentin/Documents/Cours/Projet%20tuteuré/V2/PTUT-S3/PTUT-graphs/src/View/InfoPanel.java</file>
+            <file>file:/C:/Users/Corentin/Documents/Cours/Projet%20tuteuré/V2/PTUT-S3/PTUT-graphs/src/View/InfoGraphPanel.java</file>
+            <file>file:/C:/Users/Corentin/Documents/Cours/Projet%20tuteuré/V2/PTUT-S3/PTUT-graphs/src/View/SwingContainer.java</file>
         </group>
     </open-files>
 </project-private>

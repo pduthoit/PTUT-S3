@@ -26,6 +26,7 @@ public class Sommet{
 
     public HashSet<String> getSommetsAdjacents() {
         return sommetsAdjacents;
+        
     }
     
     public String toStringSommetsAdjacents() {

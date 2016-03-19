@@ -25,6 +25,7 @@ public class ModeleTable extends AbstractTableModel{
     private List<Object[]> data;
 
     public ModeleTable() {
+        super();
         data =  new ArrayList<>();
         
     }
