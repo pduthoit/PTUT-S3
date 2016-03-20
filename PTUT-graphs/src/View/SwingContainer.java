@@ -24,7 +24,8 @@ public class SwingContainer {
     public static SwingContainer myWindow;
     public static Graph g;
     public static ModeleTable modele;
-    
+    public static int sumDegrees = 0;
+    public static int order = 0;
     private MenuBar menuBar;
     private EditPanel editPanel;
     private SplitPanel splitPanel;
@@ -85,8 +86,8 @@ public class SwingContainer {
         for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
             listeSommets.add(new Sommet(g.getNode(i).getIndex() , g.getNode(i).getDegree()));
         }
-        int sumDegrees = 0;
-        int order = 0;
+        sumDegrees = 0;
+        order = 0;
 
         modele.supprimeToutesLesLigne();
         
@@ -96,7 +97,7 @@ public class SwingContainer {
             sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
             order++; // incrémente l'ordre du graphe
             // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
-            String sommetsAdjacents = "";
+            /*String sommetsAdjacents = "";
             Iterator itr = g.getNode(i).getNeighborNodeIterator();
             while(itr.hasNext()) {
                sommetsAdjacents = sommetsAdjacents + " " + itr.next();
@@ -105,14 +106,13 @@ public class SwingContainer {
            //System.out.println(listeSommets.get(i).getId() + " - " + sommetsAdjacents  + " - " + listeSommets.get(i).getDegre());
             modele.addRow(row); // ajoute la ligne au modèle
             
-            
-              }
+            */
+        }
         
       
-         for(int i = 0; i <  modele.getData().size(); i++)
-    {
-      System.out.println("donnée à l'indice " + i + " = " +  modele.getData().get(i).toString());
-    }   
+        for(int i = 0; i <  modele.getData().size(); i++){
+            System.out.println("donnée à l'indice " + i + " = " +  modele.getData().get(i).toString());
+        }   
         
         
        
@@ -139,6 +139,10 @@ public class SwingContainer {
     
     public InfoPanel getInfoPanel() {
         return infoPanel;
+    }
+    
+    public EditPanel getEditPanel() {
+        return editPanel;
     }
     
 }

@@ -34,4 +34,10 @@ public class EditPanel extends JPanel{
         this.add(codeArea, BorderLayout.CENTER);
     }
     
+    public JTextArea getCodeArea(){
+        return codeArea;
+    }
+    public void setCodeArea(String str){
+        codeArea.append(str);
+    }
 }
