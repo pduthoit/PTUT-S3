@@ -6,7 +6,7 @@ import org.graphstream.graph.Node;
 
 public class Sommet{
  
-    private int id;
+    private String id;
     private HashSet <String> sommetsAdjacents;
     private int degre;
 
@@ -14,13 +14,13 @@ public class Sommet{
         this.degre = degre;
     }
     
-    public Sommet(int id, int degre) {
+    public Sommet(String id, int degre) {
         this.id = id;
         this.degre = degre;
         sommetsAdjacents = new HashSet <String>();
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 

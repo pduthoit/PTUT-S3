@@ -1,18 +1,22 @@
 package View;
 
+import Controller.Sommet;
 import static View.SwingContainer.g;
+import static View.SwingContainer.listeSommets;
 import static View.SwingContainer.myWindow;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.graphstream.graph.Node;
+import javax.swing.JTextField;
+
 import org.graphstream.stream.file.FileSource;
 import org.graphstream.stream.file.FileSourceFactory;
 import org.graphstream.ui.graphicGraph.GraphicElement;
@@ -57,28 +61,29 @@ public class GraphPanel extends JPanel{
             public void mousePressed(MouseEvent e) {
                 click(e);
             }
-            
         });
         
-        Component viewCp = (Component) view;
-        viewCp.setBounds(0,0,800,600);
         
         this.removeAll();
-        this.add(viewCp, BorderLayout.CENTER);
+        this.add((Component) view, BorderLayout.CENTER);
     }
     public void click(MouseEvent e) {
         int buttonDown = e.getButton();
 
         GraphicElement n = view.findNodeOrSpriteAt(e.getX(),e.getY());
+        System.out.println(n+"\n");
         if (n != null){
             if(buttonDown == MouseEvent.BUTTON1){ // si clic-gauche sur un noeud
-                System.out.println("L'id du noeud est : "+n.getId());  
-                removeGraphNode((String)n.getId());
+                System.out.println("L'id du noeud est : "+n.getId());
             }
             else if(buttonDown == MouseEvent.BUTTON3){  // si clic-droit sur un noeud
-                PopUpMenu p = new PopUpMenu(); 
-                this.add(p);
-                p.setLocation(0,0);
+                PopUpMenu p = new PopUpMenu(n, true); 
+                p.showPopup(e);
+            }
+        }else if (n == null){
+            if(buttonDown == MouseEvent.BUTTON3){  // si clic-droit dans le vide
+                PopUpMenu p = new PopUpMenu(n, false); 
+                p.showPopup(e);
             }
         }
     }
@@ -89,6 +94,41 @@ public class GraphPanel extends JPanel{
         EditPanel ep = myWindow.getEditPanel();
         ep.setCodeArea("\ng.removeNode(\""+id+"\");");
         myWindow.updateTable();
+    }
+    
+    public void createGraphNode(){        
+        JPanel myPanel = new JPanel();
+        JTextField sommet = new JTextField(5);
+        boolean test = false;
+
+        myPanel.add(new JLabel("Nom du sommet :"));
+        myPanel.add(sommet);
+        int result;
+        do{
+            result = JOptionPane.showConfirmDialog(null, myPanel,"Saisir le nom du sommet à ajouter", JOptionPane.OK_CANCEL_OPTION);
+            
+            for(int i = 0; i < listeSommets.size(); i++){
+                if(listeSommets.get(i).getId().equals(sommet.getText())){
+                    test = true;
+                    System.out.println("Erreur : Il existe déjà un noeud portant ce nom \n");
+                    continue;
+                }
+                else
+                    test = false;
+            }       
+            
+        }while(!test && result == JOptionPane.OK_OPTION );
+
+        if (result == JOptionPane.OK_OPTION) {
+            String s = sommet.getText();
+            g.addNode(s);
+            g.getNode(s).setAttribute("ui.label", s);
+
+            listeSommets.add(new Sommet(s,  g.getNode(s).getDegree()));
+            System.out.println("Un noeud a été créé.\n");
+            myWindow.getEditPanel().setCodeArea("\ng.addNode(\""+s+"\");");
+            myWindow.updateTable();
+        }  
     }
     
     public void setGraphFile(String path){

@@ -46,7 +46,7 @@ public class MenuBar{
         // Add a shortcut 
         menu0Item0.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JFileChooser dialogue = new JFileChooser(new File("."));
+                JFileChooser dialogue = new JFileChooser(new File("./src/GraphFiles/"));
                 File fichier;
                 if (dialogue.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     fichier = dialogue.getSelectedFile();

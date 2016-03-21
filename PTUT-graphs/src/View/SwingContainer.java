@@ -84,7 +84,7 @@ public class SwingContainer {
 
     public void updateTable() {
         for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
-            listeSommets.add(new Sommet(g.getNode(i).getIndex() , g.getNode(i).getDegree()));
+            listeSommets.add(new Sommet(g.getNode(i).getId() , g.getNode(i).getDegree()));
         }
         sumDegrees = 0;
         order = 0;

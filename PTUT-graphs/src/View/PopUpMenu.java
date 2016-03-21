@@ -5,12 +5,15 @@
  */
 package View;
 
+import static View.SwingContainer.myWindow;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import org.graphstream.ui.graphicGraph.GraphicElement;
 
 /**
  *
@@ -18,23 +21,34 @@ import javax.swing.JPopupMenu;
  */
 public class PopUpMenu extends JPopupMenu {
     private JMenuItem item;
-    public PopUpMenu(){
-//        ActionListener menuListener = new ActionListener() {
-//        public void actionPerformed(ActionEvent event) {
-//            System.out.println("Popup menu item ["
-//                    + event.getActionCommand() + "] was pressed.");
-//        }
-//        };
+    public PopUpMenu(GraphicElement n,Boolean estUnNoeud){
+        ActionListener removeNode = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {           
+            myWindow.getGraphPanel().removeGraphNode((String)n.getId());
+        }
+        };
         
-        this.add(item = new JMenuItem("Supprimer le noeud"));
-        this.addSeparator();
-        this.add(item = new JMenuItem("fzfzf"));
-//        item.addActionListener(menuListener);
+        ActionListener createNode = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {           
+            System.out.println("heyya");
+            myWindow.getGraphPanel().createGraphNode();
+        }
+        };
+        if(estUnNoeud){
+            this.add(item = new JMenuItem("Supprimer le noeud"));
+            item.addActionListener(removeNode);
+//            this.addSeparator();
+//            this.add(item = new JMenuItem("fzfzf"));
+        }else if(!estUnNoeud){
+            this.add(item = new JMenuItem("Créer un noeud"));
+            item.addActionListener(createNode);
+//            this.addSeparator();
+//            this.add(item = new JMenuItem("fzfzf"));
+        }
+        
     }
 
     void showPopup(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            this.show(e.getComponent(),e.getX(), e.getY());
-        }
+        this.show(e.getComponent(),e.getX(), e.getY());
     }
 }
