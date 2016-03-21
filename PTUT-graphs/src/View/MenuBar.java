@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Courbe;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,7 +30,7 @@ import org.graphstream.graph.Graph;
  *
  * @author User
  */
-public class MenuBar{
+public class MenuBar {
 
     final private JMenuBar menuBar = new JMenuBar();
     final private JMenu menu0 = new JMenu("Fichier");
@@ -37,14 +38,14 @@ public class MenuBar{
     final private JMenu menu2 = new JMenu("Aide");
     final private JMenuItem menu0Item0 = new JMenuItem("Ouvrir");
     final private JMenuItem menu1Item0 = new JMenuItem("Créer un sommet");
+    final private JMenuItem JBCreerCourbe = new JMenuItem("Afficher la courbe");
 
-
-    public MenuBar(){
-        GraphPanel gPanel = myWindow.getGraphPanel();
+    public MenuBar() {
+        final GraphPanel gPanel = myWindow.getGraphPanel();
         System.out.println(gPanel);
 
         // Add a shortcut 
-        menu0Item0.addActionListener(new java.awt.event.ActionListener(){
+        menu0Item0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser dialogue = new JFileChooser(new File("./src/GraphFiles/"));
                 File fichier;
@@ -56,8 +57,17 @@ public class MenuBar{
         });
         menu0Item0.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
 
+        JBCreerCourbe.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Courbe c = new Courbe();
+                c.setVisible();
+            }
+        });
+
         menu0.add(menu0Item0);
         menu1.add(menu1Item0);
+        menu1.add(JBCreerCourbe);
         menuBar.add(menu0);
         menuBar.add(menu1);
         menuBar.add(menu2);
@@ -89,7 +99,7 @@ public class MenuBar{
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }*/
-    /*private void menu1Item0ActionPerformed(java.awt.event.ActionEvent evt) {
+ /*private void menu1Item0ActionPerformed(java.awt.event.ActionEvent evt) {
         List<Sommet> listeSommets = myWindow.getGraphPanel().getListeSommets();
         Graph g = myWindow.getG();
         JPanel myPanel = new JPanel();

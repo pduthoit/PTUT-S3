@@ -21,7 +21,7 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
  */
 public class PopUpMenu extends JPopupMenu {
     private JMenuItem item;
-    public PopUpMenu(GraphicElement n,Boolean estUnNoeud){
+    public PopUpMenu(final GraphicElement n,Boolean estUnNoeud){
         ActionListener removeNode = new ActionListener() {
         public void actionPerformed(ActionEvent event) {           
             myWindow.getGraphPanel().removeGraphNode((String)n.getId());
