@@ -111,7 +111,6 @@ public class GraphPanel extends JPanel{
                 if(listeSommets.get(i).getId().equals(sommet.getText())){
                     test = true;
                     System.out.println("Erreur : Il existe déjà un noeud portant ce nom \n");
-                    continue;
                 }
                 else
                     test = false;
