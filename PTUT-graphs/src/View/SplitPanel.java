@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javafx.scene.layout.Border;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
@@ -24,8 +23,7 @@ public class SplitPanel extends JSplitPane{
         this.setUI(new BasicSplitPaneUI() {
             public BasicSplitPaneDivider createDefaultDivider() {
             return new BasicSplitPaneDivider(this) {
-                public void setBorder(Border b) {
-                }
+
 
                 @Override
                     public void paint(Graphics g) {
