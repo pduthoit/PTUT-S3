@@ -26,16 +26,14 @@ public class Sommet{
 
     public HashSet<String> getSommetsAdjacents() {
         return sommetsAdjacents;
-        
     }
     
     public String toStringSommetsAdjacents() {
         String liste = "";
         Iterator<String> it = sommetsAdjacents.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             liste = liste + it.next() + " ";
         }
-        
         return liste;
     }
     

@@ -27,7 +27,6 @@ public class ModeleTable extends AbstractTableModel{
     public ModeleTable() {
         super();
         data =  new ArrayList<>();
-        
     }
             
      @Override

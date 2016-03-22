@@ -93,12 +93,13 @@ public class GraphPanel extends JPanel{
     }
     
     public void removeGraphNode(String id){
+        listeSommets.remove(id);
         g.removeNode(id);
         System.out.println("Le noeud "+id+" a été supprimé.\n");
         EditPanel ep = myWindow.getEditPanel();
         ep.setCodeArea("\ng.removeNode(\""+id+"\");");
+        
         myWindow.updateTable();
-        System.out.println("édite\n");
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
     }
     
@@ -112,7 +113,9 @@ public class GraphPanel extends JPanel{
         int result;
         do{
             result = JOptionPane.showConfirmDialog(null, myPanel,"Saisir le nom du sommet à ajouter", JOptionPane.OK_CANCEL_OPTION);
-            
+            if(result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION){
+                break;
+            }
             for(int i = 0; i < listeSommets.size(); i++){
                 if(listeSommets.get(i).getId().equals(sommet.getText())){
                     test = true;
@@ -133,7 +136,6 @@ public class GraphPanel extends JPanel{
             System.out.println("Un noeud a été créé.\n");
             myWindow.getEditPanel().setCodeArea("\ng.addNode(\""+s+"\");");
             myWindow.updateTable();
-            System.out.println("édite\n");
             myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
         }  
     }

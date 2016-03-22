@@ -30,7 +30,6 @@ public class PopUpMenu extends JPopupMenu {
         
         ActionListener createNode = new ActionListener() {
         public void actionPerformed(ActionEvent event) {           
-            System.out.println("heyya");
             myWindow.getGraphPanel().createGraphNode();
         }
         };
@@ -38,12 +37,13 @@ public class PopUpMenu extends JPopupMenu {
 
         ActionListener createEdge = new ActionListener() {
         public void actionPerformed(ActionEvent event) {           
-            System.out.println("heyya");
             myWindow.getGraphPanel().createGraphEdge();
         }
         };
         
         if(estUnNoeud){
+            this.add(item = new JMenuItem(n.getId()));
+            this.addSeparator();
             this.add(item = new JMenuItem("Supprimer le noeud"));
             item.addActionListener(removeNode);
             this.addSeparator();

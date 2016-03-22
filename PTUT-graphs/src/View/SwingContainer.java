@@ -108,8 +108,7 @@ public class SwingContainer {
         }
     }
 
-    public void updateTable() {
-        
+    public void updateTable() {   
         sumDegrees = 0;
         order = 0;
 
@@ -121,16 +120,19 @@ public class SwingContainer {
             sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
             order++; // incrémente l'ordre du graphe
             // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
-            /*String sommetsAdjacents = "";
+            String sommetsAdjacents = "";
+            
             Iterator itr = g.getNode(i).getNeighborNodeIterator();
             while(itr.hasNext()) {
-               sommetsAdjacents = sommetsAdjacents + " " + itr.next();
+                //g.getNode(i).addSommetsAdjacents(itr.next());
+                sommetsAdjacents = sommetsAdjacents + " " + itr.next();
             }
+            
+            System.out.println(listeSommets.get(i).toStringSommetsAdjacents());
             Object[] row = {listeSommets.get(i).getId(), sommetsAdjacents, listeSommets.get(i).getDegre()}; 
            //System.out.println(listeSommets.get(i).getId() + " - " + sommetsAdjacents  + " - " + listeSommets.get(i).getDegre());
+            System.out.println(row);
             modele.addRow(row); // ajoute la ligne au modèle
-            
-            */
         }
         
       
@@ -141,8 +143,6 @@ public class SwingContainer {
         ConnectedComponents cc = new ConnectedComponents();
         cc.init(g);
 
-        InfoGraphPanel infoGraphPanel = this.getInfoGraphPanel();
-        System.out.println(infoGraphPanel);
         if (cc.getConnectedComponentsCount() == 1) {
             connexity = true;
             infoGraphPanel.setTextFieldConnexe("Oui");

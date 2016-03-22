@@ -8,6 +8,7 @@ package View;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import Model.ModeleTable;
+import static View.SwingContainer.modele;
 
 /**
  *
@@ -16,7 +17,6 @@ import Model.ModeleTable;
 public class Table {
     private JScrollPane scrollerTable = new JScrollPane();
     private JTable table = new JTable();
-    private ModeleTable modele;
     
     public Table(){
         modele = new ModeleTable();
@@ -31,21 +31,4 @@ public class Table {
         return scrollerTable;
     }
     
-    /*private class ViewAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String command = e.getActionCommand();
-            /*if (command.equals(STANDARD)) {
-                gui.sciPanelSetVisible(false);
-                standardView.setEnabled(false);
-                scientificView.setEnabled(true);
-            } else if (command.equals(SCIENTIFIC)) {
-                gui.sciPanelSetVisible(true);
-                standardView.setEnabled(true);
-                scientificView.setEnabled(false);
-            }
-        }
-    }*/
-
 }

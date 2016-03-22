@@ -49,7 +49,6 @@ public class BarChart{
         id = 0;
         barChartData.setValue(g.getNodeCount(), "Nombre de noeuds", "T"+id);
         
-        
         barChart = ChartFactory.createBarChart("", "Etape : T","Nombre de noeuds", barChartData, PlotOrientation.VERTICAL, false, true, false);
                 
         barChart.setBackgroundPaint(new Color(240,240,240));
