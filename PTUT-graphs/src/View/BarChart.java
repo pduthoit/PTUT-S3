@@ -5,6 +5,7 @@
  */
 package View;
 
+import static View.SwingContainer.connexity;
 import static View.SwingContainer.g;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -95,12 +96,11 @@ public class BarChart{
         System.out.println("ca marche "+i+id);
         barChartData.setValue(i, "Nombre de noeuds", "T"+id);
         ((BarRenderer)categoryPlot.getRenderer()).setBarPainter(new StandardBarPainter());
-        ConnectedComponents cc = new ConnectedComponents();
-        cc.init(g);
+
         
         
         
-        if(cc.getConnectedComponentsCount()==1){
+        if(connexity){
             categoryPlot.getRendererForDataset(categoryPlot.getDataset()).setSeriesPaint(0, new Color(61,210,61));
             System.out.println("id : "+id+"\ndataset : "+categoryPlot.getDataset(id));
         }

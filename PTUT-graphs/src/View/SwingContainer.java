@@ -28,6 +28,7 @@ public class SwingContainer {
     public static ModeleTable modele;
     public static int sumDegrees = 0;
     public static int order = 0;
+    public static boolean connexity = true;
     
     private MenuBar menuBar;
     
@@ -142,8 +143,10 @@ public class SwingContainer {
         InfoGraphPanel infoGraphPanel = this.getInfoGraphPanel();
         System.out.println(infoGraphPanel);
         if (cc.getConnectedComponentsCount() == 1) {
+            connexity = true;
             infoGraphPanel.setTextFieldConnexe("Oui");
         } else {
+            connexity = false;
             infoGraphPanel.setTextFieldConnexe("Non");
         }
         

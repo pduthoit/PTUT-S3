@@ -34,14 +34,29 @@ public class PopUpMenu extends JPopupMenu {
             myWindow.getGraphPanel().createGraphNode();
         }
         };
+        
+
+        ActionListener createEdge = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {           
+            System.out.println("heyya");
+            myWindow.getGraphPanel().createGraphEdge();
+        }
+        };
+        
         if(estUnNoeud){
             this.add(item = new JMenuItem("Supprimer le noeud"));
             item.addActionListener(removeNode);
+            this.addSeparator();
+            this.add(item = new JMenuItem("Ajouter une arrête"));
+            item.addActionListener(createEdge);
 //            this.addSeparator();
 //            this.add(item = new JMenuItem("fzfzf"));
         }else if(!estUnNoeud){
             this.add(item = new JMenuItem("Créer un noeud"));
             item.addActionListener(createNode);
+            this.addSeparator();
+            this.add(item = new JMenuItem("Ajouter une arrête"));
+            item.addActionListener(createEdge);
 //            this.addSeparator();
 //            this.add(item = new JMenuItem("fzfzf"));
         }

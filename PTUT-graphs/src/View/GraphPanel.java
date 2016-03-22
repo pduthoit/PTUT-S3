@@ -2,6 +2,7 @@ package View;
 
 import Controller.Sommet;
 import static View.SwingContainer.g;
+import static View.SwingContainer.listeArretes;
 import static View.SwingContainer.listeSommets;
 import static View.SwingContainer.myWindow;
 import java.awt.BorderLayout;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -134,6 +136,55 @@ public class GraphPanel extends JPanel{
         }  
     }
     
+    public void createGraphEdge(){
+        JPanel myPanel = new JPanel();
+        String[] listeNomsSommets = new String[listeSommets.size()];
+        
+        for(int i = 0; i < listeSommets.size(); i++){
+            listeNomsSommets[i] = listeSommets.get(i).getId();
+        } 
+        
+        JList sommet1 = new JList(listeNomsSommets);
+        JList sommet2 = new JList(listeNomsSommets);
+              
+
+        myPanel.add(new JLabel("Premier sommet :"));
+        myPanel.add(sommet1);
+         myPanel.add(new JLabel("Deuxième sommet :"));
+        myPanel.add(sommet2);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel,"Saisir le nom des deux sommets", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            String s1 = (String) sommet1.getSelectedValue();
+            String s2 = (String) sommet2.getSelectedValue();
+            g.addEdge(s1.concat(s2), s1, s2);
+            vue.enableAutoLayout();
+            //g.getEdge(s1.concat(s2)).setAttribute("ui.label",s1.concat(s2));
+            
+            listeArretes.add(g.getEdge(s1.concat(s2)));
+            
+            for(int i = 0; i < listeSommets.size(); i++){
+                if(listeSommets.get(i).getId().equals(s1) ){
+                    listeSommets.get(i).setDegre(listeSommets.get(i).getDegre() + 1);
+                    listeSommets.get(i).addSommetsAdjacents(s2);
+                }
+                
+            } 
+            
+            for(int i = 0; i < listeSommets.size(); i++){
+                if(listeSommets.get(i).getId().equals(s2) ){
+                    listeSommets.get(i).setDegre(listeSommets.get(i).getDegre() + 1);
+                    listeSommets.get(i).addSommetsAdjacents(s1);
+                }
+            } 
+
+            System.out.println("Une arrête a été créée.\n");
+            myWindow.getEditPanel().setCodeArea("\ng.addEdge(\""+s1.concat(s2)+"\", \""+s1+"\", \""+s2+"\");");
+            myWindow.updateTable();
+            myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+        }
+    }
+    
     public void setGraphFile(String path){
         g.clear();
        
@@ -176,15 +227,11 @@ public class GraphPanel extends JPanel{
             g.addAttribute("ui.stylesheet", "node { size : 5px; }");
         else if(g.getNodeCount() >= 150)
             g.addAttribute("ui.stylesheet", "node { size : 1px; }");
-        
-        
+              
         vue = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         vue.enableAutoLayout(); 
         myWindow.updateTable();
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
         view = vue.addDefaultView(false);
-        
-        
-        
     } 
 }
