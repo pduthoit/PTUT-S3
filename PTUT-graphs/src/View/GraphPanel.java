@@ -234,6 +234,7 @@ public class GraphPanel extends JPanel{
               
         vue = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         vue.enableAutoLayout(); 
+        SwingContainer.fillListeSommets();
         myWindow.updateTable();
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
         view = vue.addDefaultView(false);

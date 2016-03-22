@@ -103,6 +103,7 @@ public class SwingContainer {
         mainFrame.setVisible(true);
     }
     public static void fillListeSommets(){
+        listeSommets.clear();
         for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
             listeSommets.add(new Sommet(g.getNode(i).getId() , g.getNode(i).getDegree()));
         }
@@ -124,21 +125,13 @@ public class SwingContainer {
             
             Iterator itr = g.getNode(i).getNeighborNodeIterator();
             while(itr.hasNext()) {
-                //g.getNode(i).addSommetsAdjacents(itr.next());
                 sommetsAdjacents = sommetsAdjacents + " " + itr.next();
             }
             
-            System.out.println(listeSommets.get(i).toStringSommetsAdjacents());
             Object[] row = {listeSommets.get(i).getId(), sommetsAdjacents, listeSommets.get(i).getDegre()}; 
-           //System.out.println(listeSommets.get(i).getId() + " - " + sommetsAdjacents  + " - " + listeSommets.get(i).getDegre());
-            System.out.println(row);
+          
             modele.addRow(row); // ajoute la ligne au modèle
         }
-        
-      
-        for(int i = 0; i <  modele.getData().size(); i++){
-            System.out.println("donnée à l'indice " + i + " = " +  modele.getData().get(i).toString());
-        }   
 
         ConnectedComponents cc = new ConnectedComponents();
         cc.init(g);

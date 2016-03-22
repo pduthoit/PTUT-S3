@@ -31,4 +31,8 @@ public class Table {
         return scrollerTable;
     }
     
+    public void updateData(){
+        table.setModel(modele);
+    }
+    
 }
