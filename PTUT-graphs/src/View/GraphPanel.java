@@ -13,10 +13,12 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.graphstream.stream.file.FileSource;
@@ -143,15 +145,16 @@ public class GraphPanel extends JPanel{
         for(int i = 0; i < listeSommets.size(); i++){
             listeNomsSommets[i] = listeSommets.get(i).getId();
         } 
+//        DefaultListModel dlm = new DefaultListModel();
         
         JList sommet1 = new JList(listeNomsSommets);
         JList sommet2 = new JList(listeNomsSommets);
               
 
         myPanel.add(new JLabel("Premier sommet :"));
-        myPanel.add(sommet1);
-         myPanel.add(new JLabel("Deuxième sommet :"));
-        myPanel.add(sommet2);
+        myPanel.add(new JScrollPane(sommet1));
+        myPanel.add(new JLabel("Deuxième sommet :"));
+        myPanel.add(new JScrollPane(sommet2));
 
         int result = JOptionPane.showConfirmDialog(null, myPanel,"Saisir le nom des deux sommets", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
@@ -167,8 +170,7 @@ public class GraphPanel extends JPanel{
                 if(listeSommets.get(i).getId().equals(s1) ){
                     listeSommets.get(i).setDegre(listeSommets.get(i).getDegre() + 1);
                     listeSommets.get(i).addSommetsAdjacents(s2);
-                }
-                
+                } 
             } 
             
             for(int i = 0; i < listeSommets.size(); i++){

@@ -54,6 +54,7 @@ public class SwingContainer {
             listeArretes = new ArrayList<Edge>();
             myWindow = new SwingContainer();
             myWindow.prepareGUI();
+            SwingContainer.fillListeSommets();
             myWindow.updateTable();
         }catch(Exception E){
             E.printStackTrace();
@@ -104,11 +105,14 @@ public class SwingContainer {
         
         mainFrame.setVisible(true);
     }
-
-    public void updateTable() {
+    public static void fillListeSommets(){
         for(int i = 0; i < g.getNodeCount(); i++){  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
             listeSommets.add(new Sommet(g.getNode(i).getId() , g.getNode(i).getDegree()));
         }
+    }
+
+    public void updateTable() {
+        
         sumDegrees = 0;
         order = 0;
 
