@@ -1,6 +1,5 @@
 package View;
 
-import Controller.Courbe;
 import Controller.Sommet;
 import Model.ModeleTable;
 import java.awt.*;
@@ -24,14 +23,12 @@ public class SwingContainer {
     public static java.util.List<Edge> listeArretes;    
     public static SwingContainer myWindow;
     public static Graph g;
-    public static Courbe c;
     public static ModeleTable modele;
     public static int sumDegrees = 0;
     public static int order = 0;
     public static boolean connexity = true;
     
     private MenuBar menuBar;
-    
     private SplitPanel splitPanel;
     private EditPanel editPanel;
     private GraphPanel graphPanel;

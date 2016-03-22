@@ -5,7 +5,6 @@
  */
 package View;
 
-import Controller.Courbe;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -57,17 +56,8 @@ public class MenuBar {
         });
         menu0Item0.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
 
-        JBCreerCourbe.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Courbe c = new Courbe();
-                c.setVisible();
-            }
-        });
-
         menu0.add(menu0Item0);
         menu1.add(menu1Item0);
-        menu1.add(JBCreerCourbe);
         menuBar.add(menu0);
         menuBar.add(menu1);
         menuBar.add(menu2);
