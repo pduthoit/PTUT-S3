@@ -13,19 +13,17 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
  *
  * @author User
  */
-public class SplitPanel extends JSplitPane{
+public class SplitPanelSouth extends JSplitPane{
     private boolean firstResize = true;
  
-    public SplitPanel(int split ,JPanel graphPanel, JPanel editPanel){
+    public SplitPanelSouth(int split ,JPanel graphPanel, JPanel editPanel){
         super(split,graphPanel,editPanel);
         this.setContinuousLayout(true);
-        this.setDividerLocation(900);
+        this.setDividerLocation(700);
         this.setDividerSize(3);
         this.setUI(new BasicSplitPaneUI() {
             public BasicSplitPaneDivider createDefaultDivider() {
             return new BasicSplitPaneDivider(this) {
-
-
                 @Override
                     public void paint(Graphics g) {
                     g.setColor(Color.LIGHT_GRAY); 
@@ -40,7 +38,7 @@ public class SplitPanel extends JSplitPane{
             @Override
             public void componentResized(ComponentEvent e) {
                 if(firstResize) {
-                    setDividerLocation(0.55);
+                    setDividerLocation(0.35);
                     firstResize = false;
                 }
             }

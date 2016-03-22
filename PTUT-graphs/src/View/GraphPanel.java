@@ -94,6 +94,8 @@ public class GraphPanel extends JPanel{
         EditPanel ep = myWindow.getEditPanel();
         ep.setCodeArea("\ng.removeNode(\""+id+"\");");
         myWindow.updateTable();
+        System.out.println("édite\n");
+        myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
     }
     
     public void createGraphNode(){        
@@ -116,7 +118,7 @@ public class GraphPanel extends JPanel{
                     test = false;
             }       
             
-        }while(!test && result == JOptionPane.OK_OPTION );
+        }while(!test && result != JOptionPane.OK_OPTION );
 
         if (result == JOptionPane.OK_OPTION) {
             String s = sommet.getText();
@@ -127,6 +129,8 @@ public class GraphPanel extends JPanel{
             System.out.println("Un noeud a été créé.\n");
             myWindow.getEditPanel().setCodeArea("\ng.addNode(\""+s+"\");");
             myWindow.updateTable();
+            System.out.println("édite\n");
+            myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
         }  
     }
     
@@ -177,6 +181,7 @@ public class GraphPanel extends JPanel{
         vue = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         vue.enableAutoLayout(); 
         myWindow.updateTable();
+        myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
         view = vue.addDefaultView(false);
         
         

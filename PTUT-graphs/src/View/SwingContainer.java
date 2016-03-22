@@ -24,15 +24,23 @@ public class SwingContainer {
     public static java.util.List<Edge> listeArretes;    
     public static SwingContainer myWindow;
     public static Graph g;
-        public static Courbe c;
+    public static Courbe c;
     public static ModeleTable modele;
     public static int sumDegrees = 0;
     public static int order = 0;
+    
     private MenuBar menuBar;
-    private EditPanel editPanel;
+    
     private SplitPanel splitPanel;
-    private InfoPanel infoPanel;
+    private EditPanel editPanel;
     private GraphPanel graphPanel;
+    
+    private JPanel southPanel;
+    private InfoGraphPanel infoGraphPanel;
+    private SplitPanelSouth splitPanelSouth;
+    private InfoPanel infoPanel;
+    private BarChart barChart;  
+    
     
     
     public SwingContainer(){}
@@ -77,9 +85,21 @@ public class SwingContainer {
         splitPanel = new SplitPanel(JSplitPane.HORIZONTAL_SPLIT, graphPanel, editPanel);
         mainFrame.add(splitPanel, BorderLayout.CENTER);
         
+        
+        southPanel = new JPanel(new BorderLayout());
         // Add infoPanel (contains information about the Graph)
         infoPanel = new InfoPanel();        
-        mainFrame.add(infoPanel, BorderLayout.PAGE_END);
+        
+        barChart = new BarChart();        
+        splitPanelSouth = new SplitPanelSouth(JSplitPane.HORIZONTAL_SPLIT, barChart.getChart(), infoPanel);
+       
+        infoGraphPanel = new InfoGraphPanel();
+        
+        
+        southPanel.add(splitPanelSouth, BorderLayout.CENTER);
+        southPanel.add(infoGraphPanel, BorderLayout.PAGE_START);
+        
+        mainFrame.add(southPanel, BorderLayout.PAGE_END);        
         
         mainFrame.setVisible(true);
     }
@@ -115,14 +135,11 @@ public class SwingContainer {
         for(int i = 0; i <  modele.getData().size(); i++){
             System.out.println("donnée à l'indice " + i + " = " +  modele.getData().get(i).toString());
         }   
-        
-        
-       
 
         ConnectedComponents cc = new ConnectedComponents();
         cc.init(g);
 
-        InfoGraphPanel infoGraphPanel = this.getInfoPanel().getInfoGraphPanel();
+        InfoGraphPanel infoGraphPanel = this.getInfoGraphPanel();
         System.out.println(infoGraphPanel);
         if (cc.getConnectedComponentsCount() == 1) {
             infoGraphPanel.setTextFieldConnexe("Oui");
@@ -141,6 +158,14 @@ public class SwingContainer {
     
     public InfoPanel getInfoPanel() {
         return infoPanel;
+    }
+    
+    public InfoGraphPanel getInfoGraphPanel() {
+        return infoGraphPanel;
+    }
+    
+    public BarChart getBarChart() {
+        return barChart;
     }
     
     public EditPanel getEditPanel() {
