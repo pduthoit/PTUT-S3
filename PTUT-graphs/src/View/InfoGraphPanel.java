@@ -1,6 +1,5 @@
 package View;
 
-import static View.SwingContainer.myWindow;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -26,40 +25,45 @@ public class InfoGraphPanel extends JPanel{
     final private JTextField fieldOrdre;
     
     public InfoGraphPanel(){
-
+        
         this.setLayout(new FlowLayout());
         
+        // instancie les JLabels
         labelConnexe = new JLabel("Connexité :");
         labelComposanteConnexe = new JLabel("Composante(s) connexe(s) :");
         labelTotDegre = new JLabel("Total des degrés :");
         labelTaille = new JLabel("Taille :");
         labelOrdre = new JLabel("Ordre :");
         
+        // instancie les JTextField
         fieldConnexe = new JTextField();
         fieldComposanteConnexe = new JTextField();
         fieldTotDegre = new JTextField();
         fieldTaille = new JTextField();
         fieldOrdre = new JTextField();
         
+        // modifie la taille des JTextField
         fieldConnexe.setPreferredSize(new Dimension(50, 24));
         fieldComposanteConnexe.setPreferredSize(new Dimension(50, 24));
         fieldTotDegre.setPreferredSize(new Dimension(50, 24));
         fieldTaille.setPreferredSize(new Dimension(50, 24));
         fieldOrdre.setPreferredSize(new Dimension(50, 24));
         
+        // rend inéditable les JTextField
         fieldConnexe.setEditable(false);
         fieldComposanteConnexe.setEditable(false);
         fieldTotDegre.setEditable(false);
         fieldTaille.setEditable(false);
         fieldOrdre.setEditable(false);
         
+        // centre le texte des JTextField
         fieldConnexe.setHorizontalAlignment(JTextField.CENTER);
         fieldComposanteConnexe.setHorizontalAlignment(JTextField.CENTER);
         fieldTotDegre.setHorizontalAlignment(JTextField.CENTER);
         fieldTaille.setHorizontalAlignment(JTextField.CENTER);
         fieldOrdre.setHorizontalAlignment(JTextField.CENTER);
         
-        
+        // ajoute les composantes à la JPanel
         this.add(labelConnexe);
         this.add(fieldConnexe);
         this.add(labelComposanteConnexe);
@@ -72,7 +76,7 @@ public class InfoGraphPanel extends JPanel{
         this.add(fieldOrdre);
     }
     
-    
+    // getters et setters
     public void setTextFieldConnexe(String bool) {
         this.fieldConnexe.setText(bool);
     }
@@ -91,11 +95,5 @@ public class InfoGraphPanel extends JPanel{
     
     public void setTextFieldOrdre(int ordre) {
         this.fieldOrdre.setText(Integer.toString(ordre));
-    }
-    
-    public InfoGraphPanel getInfoGraphPanel(){
-        System.out.println("getInfoGraphPanel()");
-        return this;
-    }
-        
+    }      
 }

@@ -9,37 +9,32 @@ import javax.swing.JSplitPane;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-/**
- *
- * @author User
- */
-public class SplitPanel extends JSplitPane{
+public class SplitPanel extends JSplitPane {
+
     private boolean firstResize = true;
- 
-    public SplitPanel(int split ,JPanel graphPanel, JPanel editPanel){
-        super(split,graphPanel,editPanel);
+
+    public SplitPanel(int split, JPanel graphPanel, JPanel editPanel) {
+        super(split, graphPanel, editPanel);
         this.setContinuousLayout(true);
         this.setDividerLocation(900);
         this.setDividerSize(3);
         this.setUI(new BasicSplitPaneUI() {
             public BasicSplitPaneDivider createDefaultDivider() {
-            return new BasicSplitPaneDivider(this) {
-
-
-                @Override
+                return new BasicSplitPaneDivider(this) {
+                    @Override
                     public void paint(Graphics g) {
-                    g.setColor(Color.LIGHT_GRAY); 
-                    g.fillRect(0, 0, getSize().width, getSize().height);
+                        g.setColor(Color.LIGHT_GRAY);
+                        g.fillRect(0, 0, getSize().width, getSize().height);
                         super.paint(g);
                     }
-            };
+                };
             }
         });
-        
+
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                if(firstResize) {
+                if (firstResize) {
                     setDividerLocation(0.55);
                     firstResize = false;
                 }

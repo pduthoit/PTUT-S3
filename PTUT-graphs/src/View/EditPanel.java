@@ -19,6 +19,7 @@ public class EditPanel extends JPanel{
         codeArea.setFont(new java.awt.Font("Consolas", 0, 13));
         codeArea.setForeground(new Color(170,170,170));
         codeArea.setBackground(new Color(20,20,45));
+        // Initialise le codeArea
         codeArea.append("g.addEdge(\"AB\", \"A\", \"B\");\n" +
                         "g.addEdge(\"BC\", \"B\", \"C\");\n" +
                         "g.addEdge(\"CA\", \"C\", \"A\");\n" +
