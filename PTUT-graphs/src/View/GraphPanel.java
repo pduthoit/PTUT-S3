@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import org.graphstream.graph.Node;
 
 import org.graphstream.stream.file.FileSource;
 import org.graphstream.stream.file.FileSourceFactory;
@@ -92,8 +94,15 @@ public class GraphPanel extends JPanel{
         }
     }
     
-    public void removeGraphNode(String id){
-        listeSommets.remove(id);
+    public void removeGraphNode(String id){        
+        Iterator<Sommet> it = listeSommets.iterator();
+        while (it.hasNext()) {
+          Sommet node = it.next();
+          if (node.getId().equals(id)) {
+            it.remove();
+          }
+        }
+
         g.removeNode(id);
         System.out.println("Le noeud "+id+" a été supprimé.\n");
         EditPanel ep = myWindow.getEditPanel();
@@ -234,6 +243,7 @@ public class GraphPanel extends JPanel{
               
         vue = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         vue.enableAutoLayout(); 
+        myWindow.getEditPanel().resetCodeArea();
         SwingContainer.fillListeSommets();
         myWindow.updateTable();
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique

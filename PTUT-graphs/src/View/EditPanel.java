@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class EditPanel extends JPanel{
     
-    private JTextArea codeArea;
+    public JTextArea codeArea;
     
     public EditPanel(){
         super();
@@ -39,5 +39,8 @@ public class EditPanel extends JPanel{
     }
     public void setCodeArea(String str){
         codeArea.append(str);
+    }
+    public void resetCodeArea(){
+        codeArea.setText("");
     }
 }

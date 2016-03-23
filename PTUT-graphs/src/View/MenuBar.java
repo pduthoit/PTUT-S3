@@ -55,7 +55,13 @@ public class MenuBar {
             }
         });
         menu0Item0.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-
+        
+        menu1Item0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myWindow.getGraphPanel().createGraphNode();
+            }
+        });
+        
         menu0.add(menu0Item0);
         menu1.add(menu1Item0);
         menuBar.add(menu0);

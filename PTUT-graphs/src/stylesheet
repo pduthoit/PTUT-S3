@@ -5,7 +5,7 @@ node {
     stroke-mode: plain;
     stroke-color: #333;
     size: 25px;
-    text-visibility-mode:hidden;
+    text-mode:hidden;
 }
 edge {
     fill-color: #333;

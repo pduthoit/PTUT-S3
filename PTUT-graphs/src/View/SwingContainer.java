@@ -120,9 +120,10 @@ public class SwingContainer {
         for (int i = 0; i < listeSommets.size(); i++) {
             sumDegrees += listeSommets.get(i).getDegre(); // ajoute degré noeud courant à la somme des degrés
             order++; // incrémente l'ordre du graphe
+            
             // créer une ligne a ajouter à notre modèle de table qui contient : le nom du sommet, le nom de ses sommets adjacents et le degré du sommet
             String sommetsAdjacents = "";
-            
+
             Iterator itr = g.getNode(i).getNeighborNodeIterator();
             while(itr.hasNext()) {
                 sommetsAdjacents = sommetsAdjacents + " " + itr.next();
@@ -144,6 +145,7 @@ public class SwingContainer {
             infoGraphPanel.setTextFieldConnexe("Non");
         }
         
+        infoGraphPanel.setTextFieldCompConnexe(cc.getConnectedComponentsCount());
         infoGraphPanel.setTextFieldOrdre(order);
         infoGraphPanel.setTextFieldTotDegre(sumDegrees);
         infoGraphPanel.setTextFieldTaille(sumDegrees/2);

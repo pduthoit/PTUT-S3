@@ -1,7 +1,9 @@
 package Controller;
 
+import static View.SwingContainer.g;
 import java.util.HashSet;
 import java.util.Iterator;
+import org.graphstream.algorithm.ConnectedComponents;
 import org.graphstream.graph.Node;
 
 public class Sommet{
@@ -26,6 +28,12 @@ public class Sommet{
 
     public HashSet<String> getSommetsAdjacents() {
         return sommetsAdjacents;
+    }
+    
+    public int getCompConnCount(){
+        ConnectedComponents cc = new ConnectedComponents();
+        cc.init(g);
+        return cc.getConnectedComponentsCount();
     }
     
     public String toStringSommetsAdjacents() {
