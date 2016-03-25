@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
+import javax.swing.text.DefaultCaret;
 
 public class EditPanel extends JPanel{
     
@@ -27,6 +28,9 @@ public class EditPanel extends JPanel{
                         "g.addEdge(\"DE\", \"D\", \"E\");\n" +
                         "g.addEdge(\"DF\", \"D\", \"F\");\n" +
                         "g.addEdge(\"EF\", \"E\", \"F\");");
+        
+        DefaultCaret caret = (DefaultCaret)codeArea.getCaret(); 
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         codeArea.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         codeArea.setCaretColor(new Color(170,170,170));
         codeArea.setBorder( BorderFactory.createCompoundBorder(

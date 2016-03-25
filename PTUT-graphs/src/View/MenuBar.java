@@ -5,25 +5,12 @@
  */
 package View;
 
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import Controller.Sommet;
-import Model.ModeleTable;
 import static View.SwingContainer.myWindow;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import org.graphstream.graph.Graph;
 
 /**
  *
@@ -34,10 +21,12 @@ public class MenuBar {
     final private JMenuBar menuBar = new JMenuBar();
     final private JMenu menu0 = new JMenu("Fichier");
     final private JMenu menu1 = new JMenu("Edition");
-    final private JMenu menu2 = new JMenu("Aide");
+    final private JMenu menu2 = new JMenu("Fonction");
+    final private JMenu menu3 = new JMenu("Aide");
     final private JMenuItem menu0Item0 = new JMenuItem("Ouvrir");
     final private JMenuItem menu1Item0 = new JMenuItem("Créer un sommet");
-    final private JMenuItem JBCreerCourbe = new JMenuItem("Afficher la courbe");
+    final private JMenuItem menu2Item0 = new JMenuItem("deleteNode()");
+    final private JMenuItem menu2Item1 = new JMenuItem("deleteEdge()");
 
     public MenuBar() {
         final GraphPanel gPanel = myWindow.getGraphPanel();
@@ -62,11 +51,26 @@ public class MenuBar {
             }
         });
         
+        menu2Item0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myWindow.getGraphPanel().deleteRandomNode();
+            }
+        });
+        
+        menu2Item1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myWindow.getGraphPanel().deleteRandomEdge();
+            }
+        });
+        
         menu0.add(menu0Item0);
         menu1.add(menu1Item0);
+        menu2.add(menu2Item0);
+        menu2.add(menu2Item1);
         menuBar.add(menu0);
         menuBar.add(menu1);
         menuBar.add(menu2);
+        menuBar.add(menu3);
 
     }
 

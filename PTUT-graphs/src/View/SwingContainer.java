@@ -53,6 +53,7 @@ public class SwingContainer {
             myWindow = new SwingContainer();
             myWindow.prepareGUI();
             SwingContainer.fillListeSommets();
+            SwingContainer.fillListeArretes();
             myWindow.updateTable();
         } catch (Exception E) {
             E.printStackTrace();
@@ -75,7 +76,7 @@ public class SwingContainer {
         // Create Graph (left) and Edit (right) panel
         graphPanel = new GraphPanel();
         editPanel = new EditPanel();
-
+        
         // Add Menu Bar
         menuBar = new MenuBar();
         mainFrame.setJMenuBar(menuBar.getJMenuBar());
@@ -111,6 +112,13 @@ public class SwingContainer {
         listeSommets.clear();
         for (int i = 0; i < g.getNodeCount(); i++) {  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
             listeSommets.add(new Sommet(g.getNode(i).getId(), g.getNode(i).getDegree()));
+        }
+    }
+    
+    public static void fillListeArretes() { // set/reset la liste des sommets
+        listeArretes.clear();
+        for (int i = 0; i < g.getEdgeCount(); i++) {  // Récupère tous les sommets du Graphe pour les mettre dans listeSommets
+            listeArretes.add(g.getEdge(i));
         }
     }
 

@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import org.graphstream.graph.Edge;
 
 import org.graphstream.stream.file.FileSource;
 import org.graphstream.stream.file.FileSourceFactory;
@@ -35,6 +39,7 @@ public class GraphPanel extends JPanel {
 
     public static Viewer vue;
     public static View view;
+    private Random randomGenerator = new Random();
 
     public GraphPanel() throws IOException {
         this.setLayout(new BorderLayout());
@@ -106,6 +111,76 @@ public class GraphPanel extends JPanel {
 
         myWindow.updateTable();
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+    }
+    
+    public void deleteRandomNode() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run()
+            {
+                randomGenerator = new Random();
+                int index = randomGenerator.nextInt(listeSommets.size());
+                Sommet node = listeSommets.get(index);
+                String nomNode = node.getId();
+                System.out.println("L'id du sommet random est : "+nomNode);
+                Iterator<Sommet> it = listeSommets.iterator();
+                while (it.hasNext()) {
+                    node = it.next();
+                    if (node.getId().equals(nomNode)) {
+                        it.remove();
+                    }
+                }
+                g.removeNode(nomNode);
+                System.out.println("Le noeud " + nomNode + " a été supprimé.\n");
+                System.out.println("Le nb de noeud " + g.getNodeCount()+ "\n");
+                EditPanel ep = myWindow.getEditPanel();
+                ep.setCodeArea("\ng.removeNode(\"" + nomNode + "\");");
+
+                myWindow.updateTable();
+                myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+            }
+        };
+        if(g.getNodeCount() == 0){
+            timer.cancel();
+            timer.purge();
+        }
+        else
+            timer.schedule(task, 0L ,2000L);
+    }
+    
+    public void deleteRandomEdge() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run()
+            {
+                randomGenerator = new Random();
+                int index = randomGenerator.nextInt(listeArretes.size());
+                Edge edge = listeArretes.get(index);
+                String nomEdge = edge.getId();
+                Iterator<Edge> it = listeArretes.iterator();
+                while (it.hasNext()) {
+                    edge = it.next();
+                    if (edge.getId().equals(nomEdge)) {
+                        it.remove();
+                    }
+                }
+                g.removeEdge(nomEdge);
+                System.out.println("Le noeud " + nomEdge + " a été supprimé.\n");
+                System.out.println("Le nb de noeud " + g.getEdgeCount()+ "\n");
+                EditPanel ep = myWindow.getEditPanel();
+                ep.setCodeArea("\ng.removeEdge(\"" + nomEdge + "\");");
+
+                myWindow.updateTable();
+                myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+            }
+        };
+        if(g.getEdgeCount() == 0){
+            timer.cancel();
+            timer.purge();
+        }
+        else
+            timer.schedule(task, 0L ,2000L);
+        
     }
 
     public void createGraphNode() {
@@ -184,7 +259,7 @@ public class GraphPanel extends JPanel {
                     listeSommets.get(i).addSommetsAdjacents(s1);
                 }
             }
-
+            
             System.out.println("Une arrête a été créée.\n");
             myWindow.getEditPanel().setCodeArea("\ng.addEdge(\"" + s1.concat(s2) + "\", \"" + s1 + "\", \"" + s2 + "\");");
             myWindow.updateTable();
@@ -240,6 +315,7 @@ public class GraphPanel extends JPanel {
         vue.enableAutoLayout();
         myWindow.getEditPanel().resetCodeArea();
         SwingContainer.fillListeSommets();
+        SwingContainer.fillListeArretes();
         myWindow.updateTable();
         myWindow.getBarChart().clearChart();
         myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
