@@ -8,9 +8,11 @@ package View;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import static View.SwingContainer.myWindow;
 import java.io.File;
 import javax.swing.JFileChooser;
+
+import static View.SwingContainer.myWindow;
+import static View.SwingContainer.dynFuncIsRunning;
 
 /**
  *
@@ -21,12 +23,19 @@ public class MenuBar {
     final private JMenuBar menuBar = new JMenuBar();
     final private JMenu menu0 = new JMenu("Fichier");
     final private JMenu menu1 = new JMenu("Edition");
-    final private JMenu menu2 = new JMenu("Fonction");
+    final private JMenu menu2 = new JMenu("Fonctions de dynamique");
     final private JMenu menu3 = new JMenu("Aide");
+    
     final private JMenuItem menu0Item0 = new JMenuItem("Ouvrir");
     final private JMenuItem menu1Item0 = new JMenuItem("Créer un sommet");
-    final private JMenuItem menu2Item0 = new JMenuItem("deleteNode()");
-    final private JMenuItem menu2Item1 = new JMenuItem("deleteEdge()");
+    final private JMenuItem menu2Item0 = new JMenuItem("Suppression aléatoire de noeuds");
+    final private JMenuItem menu2Item1 = new JMenuItem("Suppression aléatoire d'arrêtes");
+    final private JMenuItem menu2Item2 = new JMenuItem("Arrêter");
+    
+    final private JMenu menu2graphique = new JMenu("Graphique d'analyse");
+    final private JMenuItem menu2graphiqueItem0 = new JMenuItem("Nombre de noeuds et connexité");
+    final private JMenuItem menu2graphiqueItem1 = new JMenuItem("Nombre de composantes connexes");
+
 
     public MenuBar() {
         final GraphPanel gPanel = myWindow.getGraphPanel();
@@ -63,10 +72,38 @@ public class MenuBar {
             }
         });
         
+        menu2Item2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dynFuncIsRunning = false;
+            }
+        });
+        
+        menu2graphiqueItem0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myWindow.getSplitPanelSouth().setLeftComponent(myWindow.getBarChart().getChart());
+            }
+        });
+        
+        menu2graphiqueItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myWindow.getSplitPanelSouth().setLeftComponent(myWindow.getCCChart().getChart());
+            }
+        });
+        
+        
+        menu2Item2.setEnabled(false);
         menu0.add(menu0Item0);
         menu1.add(menu1Item0);
+        
+        menu2graphique.add(menu2graphiqueItem0);
+        menu2graphique.add(menu2graphiqueItem1);
+        menu2.add(menu2graphique);
+        menu2.addSeparator();
         menu2.add(menu2Item0);
         menu2.add(menu2Item1);
+        menu2.addSeparator();
+        menu2.add(menu2Item2);
+        
         menuBar.add(menu0);
         menuBar.add(menu1);
         menuBar.add(menu2);
@@ -77,62 +114,8 @@ public class MenuBar {
     public JMenuBar getJMenuBar() {
         return menuBar;
     }
-
-    /*private class ViewAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String command = e.getActionCommand();
-            if (command.equals(STANDARD)) {
-                gui.sciPanelSetVisible(false);
-                standardView.setEnabled(false);
-                scientificView.setEnabled(true);
-            } else if (command.equals(SCIENTIFIC)) {
-                gui.sciPanelSetVisible(true);
-                standardView.setEnabled(true);
-                scientificView.setEnabled(false);
-            }
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }*/
- /*private void menu1Item0ActionPerformed(java.awt.event.ActionEvent evt) {
-        List<Sommet> listeSommets = myWindow.getGraphPanel().getListeSommets();
-        Graph g = myWindow.getG();
-        JPanel myPanel = new JPanel();
-        JTextField sommet = new JTextField(5);
-
-        boolean test = false;
-
-        myPanel.add(new JLabel("Nom du sommet :"));
-        myPanel.add(sommet);
-        int result;
-        do {
-            result = JOptionPane.showConfirmDialog(null, myPanel, "Saisir le nom du sommet à ajouter", JOptionPane.OK_CANCEL_OPTION);
-
-            for (int i = 0; i < listeSommets.size(); i++) {
-                if (listeSommets.get(i).getNom().equals(sommet.getText())) {
-                    test = true;
-                } else {
-                    test = false;
-                }
-            }
-
-        } while (test && result == JOptionPane.OK_OPTION);
-
-        if (result == JOptionPane.OK_OPTION) {
-            GraphPanel graphPanel = myWindow.getGraphPanel();
-            String s = sommet.getText();
-            g.addNode(s);
-            g.getNode(s).setAttribute("ui.label", s);
-
-            listeSommets.add(new Sommet(s, g.getNode(s).getDegree()));
-            gui.updateTable();
-        }
-        sommet.requestFocus();
-
-    }*/
+    
+    public void setMenu2Item2Clickable(boolean t) {
+        menu2Item2.setEnabled(t);
+    }
 }

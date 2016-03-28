@@ -28,6 +28,8 @@ public class SwingContainer {
     public static int sumDegrees = 0;
     public static int order = 0;
     public static boolean connexity = true;
+    public static int nbConnComp = 1;
+    public static boolean dynFuncIsRunning = false;
 
     private MenuBar menuBar;
     private SplitPanel splitPanel;
@@ -39,7 +41,9 @@ public class SwingContainer {
     private SplitPanelSouth splitPanelSouth;
     private InfoPanel infoPanel;
     private BarChart barChart;
-
+    private ConexCompChart ccChart;
+    private ConnectedComponents cc;
+        
     public SwingContainer() {
     }
 
@@ -92,12 +96,13 @@ public class SwingContainer {
         infoGraphPanel = new InfoGraphPanel();
         
         // Create barChart and infoPanel (Table)
+        ccChart = new ConexCompChart();
         barChart = new BarChart();
         infoPanel = new InfoPanel();
         
         // Add SplitPanel which contains the Chart and the Table
-        splitPanelSouth = new SplitPanelSouth(JSplitPane.HORIZONTAL_SPLIT, barChart.getChart(), infoPanel);
-        
+        splitPanelSouth = new SplitPanelSouth(JSplitPane.HORIZONTAL_SPLIT, ccChart.getChart(), infoPanel);
+
         // Add the panels to southPanel
         southPanel.add(splitPanelSouth, BorderLayout.CENTER);
         southPanel.add(infoGraphPanel, BorderLayout.PAGE_START);
@@ -147,9 +152,10 @@ public class SwingContainer {
         }
 
         // permet de vérifier la connexité
-        ConnectedComponents cc = new ConnectedComponents();
+        cc = new ConnectedComponents();
         cc.init(g);
-        if (cc.getConnectedComponentsCount() == 1) {
+        nbConnComp = cc.getConnectedComponentsCount();
+        if (nbConnComp == 1) {
             connexity = true;
             infoGraphPanel.setTextFieldConnexe("Oui");
         } else {
@@ -179,9 +185,21 @@ public class SwingContainer {
     public BarChart getBarChart() {
         return barChart;
     }
-
+    
+    public ConexCompChart getCCChart() {
+        return ccChart;
+    }
+    
     public EditPanel getEditPanel() {
         return editPanel;
+    }
+    
+    public MenuBar getMenuBar() {
+        return menuBar;
+    }
+    
+    public SplitPanelSouth getSplitPanelSouth() {
+        return splitPanelSouth;
     }
 
 }

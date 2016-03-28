@@ -27,7 +27,7 @@ public class EditPanel extends JPanel{
                         "g.addEdge(\"AD\", \"A\", \"D\");\n" +
                         "g.addEdge(\"DE\", \"D\", \"E\");\n" +
                         "g.addEdge(\"DF\", \"D\", \"F\");\n" +
-                        "g.addEdge(\"EF\", \"E\", \"F\");");
+                        "g.addEdge(\"EF\", \"E\", \"F\");\n");
         
         DefaultCaret caret = (DefaultCaret)codeArea.getCaret(); 
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);

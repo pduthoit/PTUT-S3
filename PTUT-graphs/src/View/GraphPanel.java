@@ -5,6 +5,8 @@ import static View.SwingContainer.g;
 import static View.SwingContainer.listeArretes;
 import static View.SwingContainer.listeSommets;
 import static View.SwingContainer.myWindow;
+import static View.SwingContainer.nbConnComp;
+import static View.SwingContainer.dynFuncIsRunning;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
@@ -94,7 +96,13 @@ public class GraphPanel extends JPanel {
             }
         }
     }
-
+    
+    public void updateAllInfo(){
+        myWindow.updateTable();
+        myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+        myWindow.getCCChart().setValueData(nbConnComp);
+    }
+    
     public void removeGraphNode(String id) {
         Iterator<Sommet> it = listeSommets.iterator();
         while (it.hasNext()) {
@@ -107,79 +115,83 @@ public class GraphPanel extends JPanel {
         g.removeNode(id);
         System.out.println("Le noeud " + id + " a été supprimé.\n");
         EditPanel ep = myWindow.getEditPanel();
-        ep.setCodeArea("\ng.removeNode(\"" + id + "\");");
+        ep.setCodeArea("g.removeNode(\"" + id + "\");\n");
 
-        myWindow.updateTable();
-        myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+        updateAllInfo();
     }
     
     public void deleteRandomNode() {
+        dynFuncIsRunning = true;
+        myWindow.getMenuBar().setMenu2Item2Clickable(true);
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run()
             {
-                randomGenerator = new Random();
-                int index = randomGenerator.nextInt(listeSommets.size());
-                Sommet node = listeSommets.get(index);
-                String nomNode = node.getId();
-                System.out.println("L'id du sommet random est : "+nomNode);
-                Iterator<Sommet> it = listeSommets.iterator();
-                while (it.hasNext()) {
+                if(g.getNodeCount() != 0 && dynFuncIsRunning) {
+                    randomGenerator = new Random();
+                    int index = randomGenerator.nextInt(listeSommets.size());
+                    Sommet node = listeSommets.get(index);
+                    String nomNode = node.getId();
+                    System.out.println("L'id du sommet random est : "+nomNode);
+                    Iterator<Sommet> it = listeSommets.iterator();
+                    while (it.hasNext()){
                     node = it.next();
-                    if (node.getId().equals(nomNode)) {
-                        it.remove();
+                        if (node.getId().equals(nomNode)) {
+                            it.remove();
+                        }
                     }
-                }
-                g.removeNode(nomNode);
-                System.out.println("Le noeud " + nomNode + " a été supprimé.\n");
-                System.out.println("Le nb de noeud " + g.getNodeCount()+ "\n");
-                EditPanel ep = myWindow.getEditPanel();
-                ep.setCodeArea("\ng.removeNode(\"" + nomNode + "\");");
-
-                myWindow.updateTable();
-                myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+                    g.removeNode(nomNode);
+                    System.out.println("Le noeud " + nomNode + " a été supprimé.\n");
+                    System.out.println("Le nb de noeud " + g.getNodeCount()+ "\n");
+                    EditPanel ep = myWindow.getEditPanel();
+                    ep.setCodeArea("g.removeNode(\"" + nomNode + "\");\n");
+                    updateAllInfo();
+                } else {
+                   timer.cancel();
+                   timer.purge();
+                   dynFuncIsRunning = false;
+                   myWindow.getMenuBar().setMenu2Item2Clickable(false);
+                }        
             }
         };
-        if(g.getNodeCount() == 0){
-            timer.cancel();
-            timer.purge();
-        }
-        else
-            timer.schedule(task, 0L ,2000L);
+        timer.schedule(task, 0L ,2000L);
     }
     
     public void deleteRandomEdge() {
+        dynFuncIsRunning = true;
+        myWindow.getMenuBar().setMenu2Item2Clickable(true);
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run()
             {
-                randomGenerator = new Random();
-                int index = randomGenerator.nextInt(listeArretes.size());
-                Edge edge = listeArretes.get(index);
-                String nomEdge = edge.getId();
-                Iterator<Edge> it = listeArretes.iterator();
-                while (it.hasNext()) {
-                    edge = it.next();
-                    if (edge.getId().equals(nomEdge)) {
-                        it.remove();
+                if(g.getEdgeCount() != 0 && dynFuncIsRunning) {
+                    randomGenerator = new Random();
+                    int index = randomGenerator.nextInt(listeArretes.size());
+                    Edge edge = listeArretes.get(index);
+                    String nomEdge = edge.getId();
+                    Iterator<Edge> it = listeArretes.iterator();
+                    while (it.hasNext()) {
+                        edge = it.next();
+                        if (edge.getId().equals(nomEdge)) {
+                            it.remove();
+                        }
                     }
-                }
-                g.removeEdge(nomEdge);
-                System.out.println("Le noeud " + nomEdge + " a été supprimé.\n");
-                System.out.println("Le nb de noeud " + g.getEdgeCount()+ "\n");
-                EditPanel ep = myWindow.getEditPanel();
-                ep.setCodeArea("\ng.removeEdge(\"" + nomEdge + "\");");
+                    g.removeEdge(nomEdge);
+                    System.out.println("Le noeud " + nomEdge + " a été supprimé.\n");
+                    System.out.println("Le nb de noeud " + g.getEdgeCount()+ "\n");
+                    EditPanel ep = myWindow.getEditPanel();
+                    ep.setCodeArea("g.removeEdge(\"" + nomEdge + "\");\n");
 
-                myWindow.updateTable();
-                myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+                    updateAllInfo();
+                }else {
+                   timer.cancel();
+                   timer.purge();
+                   dynFuncIsRunning = false;
+                   myWindow.getMenuBar().setMenu2Item2Clickable(false);
+                }        
             }
         };
-        if(g.getEdgeCount() == 0){
-            timer.cancel();
-            timer.purge();
-        }
-        else
-            timer.schedule(task, 0L ,2000L);
+        timer.schedule(task, 0L ,2000L);
         
     }
 
@@ -214,9 +226,9 @@ public class GraphPanel extends JPanel {
 
             listeSommets.add(new Sommet(s, g.getNode(s).getDegree()));
             System.out.println("Un noeud a été créé.\n");
-            myWindow.getEditPanel().setCodeArea("\ng.addNode(\"" + s + "\");");
-            myWindow.updateTable();
-            myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+            myWindow.getEditPanel().setCodeArea("g.addNode(\"" + s + "\");\n");
+            
+            updateAllInfo();
         }
     }
 
@@ -261,9 +273,9 @@ public class GraphPanel extends JPanel {
             }
             
             System.out.println("Une arrête a été créée.\n");
-            myWindow.getEditPanel().setCodeArea("\ng.addEdge(\"" + s1.concat(s2) + "\", \"" + s1 + "\", \"" + s2 + "\");");
-            myWindow.updateTable();
-            myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+            myWindow.getEditPanel().setCodeArea("g.addEdge(\"" + s1.concat(s2) + "\", \"" + s1 + "\", \"" + s2 + "\");\n");
+            
+            updateAllInfo();
         }
     }
 
@@ -316,9 +328,10 @@ public class GraphPanel extends JPanel {
         myWindow.getEditPanel().resetCodeArea();
         SwingContainer.fillListeSommets();
         SwingContainer.fillListeArretes();
-        myWindow.updateTable();
+        
         myWindow.getBarChart().clearChart();
-        myWindow.getBarChart().setValueData(g.getNodeCount()); // édite le graphique
+        myWindow.getCCChart().clearChart();
+        updateAllInfo();
         view = vue.addDefaultView(false);
     }
 }

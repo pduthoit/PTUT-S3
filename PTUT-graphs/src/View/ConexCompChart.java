@@ -7,6 +7,7 @@ package View;
 
 import static View.SwingContainer.connexity;
 import static View.SwingContainer.g;
+import static View.SwingContainer.nbConnComp;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -24,23 +25,23 @@ import org.jfree.ui.RectangleInsets;
  *
  * @author User
  */
-public class BarChart {
+public class ConexCompChart {
 
     private static int id;
 
-    public DefaultCategoryDataset barChartData;
+    public DefaultCategoryDataset ccChart;
 
     private ChartPanel barPanel;
     private CategoryPlot categoryPlot;
     private BarRenderer br;
     private JFreeChart barChart;
 
-    public BarChart() {
-        barChartData = new DefaultCategoryDataset();
+    public ConexCompChart() {
+        ccChart = new DefaultCategoryDataset();
         id = 0;
-        barChartData.setValue(g.getNodeCount(), "Nombre de noeuds", "T" + id);
+        ccChart.setValue(nbConnComp, "Nombre de composantes connexes", "T" + id);
 
-        barChart = ChartFactory.createBarChart("", "Etape : T", "Nombre de noeuds", barChartData, PlotOrientation.VERTICAL, false, true, false);
+        barChart = ChartFactory.createBarChart("", "Etape : T", "Nombre de composantes connexes", ccChart, PlotOrientation.VERTICAL, false, true, false);
 
         barChart.setBackgroundPaint(new Color(240, 240, 240));
 
@@ -76,18 +77,14 @@ public class BarChart {
 
     public void clearChart() { // reset le graphique
         id = 0;
-        barChartData.clear();
+        ccChart.clear();
     }
 
     public void setValueData(int i) {
         id++;
-        barChartData.setValue(i, "Nombre de noeuds", "T" + id);
+        ccChart.setValue(nbConnComp, "Nombre de composantes connexes", "T" + id);
+        categoryPlot.getRendererForDataset(categoryPlot.getDataset()).setSeriesPaint(0, new Color(61, 210, 61));
 
-        if (connexity) {
-            categoryPlot.getRendererForDataset(categoryPlot.getDataset()).setSeriesPaint(0, new Color(61, 210, 61));
-        } else {
-            categoryPlot.getRendererForDataset(categoryPlot.getDataset()).setSeriesPaint(0, new Color(210, 64, 61));
-        }
 
     }
 }
